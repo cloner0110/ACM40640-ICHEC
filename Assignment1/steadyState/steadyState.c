@@ -40,8 +40,9 @@ int main (){
 		}	
 	}
 	int iter=0;
+	int maxErr = -1;
 	//- TODO: add definition for err, by subtraction and abs of the difference	
-	while (err > 0.0001) {
+	while (maxErr > 0.0001) {
 		iter+=1;
 		for (i=0 ; i<100 ; i++){
 			for (j=0 ; j<100 ; j++){
@@ -51,8 +52,16 @@ int main (){
 		for (i=1 ; i<99 ; i++){
 			for (j=1 ; j<99 ; j++){
 				w_mat[i][j] = (w_mat_old[i+1][j] + w_mat_old[i-1][j] + w_mat_old[i][j+1] + w_mat_old[i][j-1])/4.0;
-		}	
-			}
+			}	
+		}
+	for (i=0 ; i<100 ; i++){
+		for (j=0 ; j<100 ; j++){
+			maxErr = max(maxErr , (w_mat[i][j]-w_mat_old[i][j]));
+		}
+	}
+	if (maxErr < 0.0001){
+		break;
+	}
 	}
 return 0;
 }
