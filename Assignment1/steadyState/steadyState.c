@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h> 
 #include <math.h>
+#include <stdbool.h>
 
 int main (){
 	float w_mat[100][100], w_mat_old[100][100];
@@ -41,8 +42,8 @@ int main (){
 	}
 	int iter=0;
 	int maxErr = -1;
-	//- TODO: add definition for err, by subtraction and abs of the difference	
-	while (maxErr > 0.0001) {
+	bool cond = true;
+	while (cond) {
 		iter+=1;
 		for (i=0 ; i<100 ; i++){
 			for (j=0 ; j<100 ; j++){
@@ -56,11 +57,12 @@ int main (){
 		}
 	for (i=0 ; i<100 ; i++){
 		for (j=0 ; j<100 ; j++){
-			maxErr = max(maxErr , (w_mat[i][j]-w_mat_old[i][j]));
+			maxErr = fmax(maxErr , (w_mat[i][j]-w_mat_old[i][j]));
 		}
 	}
+	printf("iteration = %d ,Error = %f \n", iter, maxErr);
 	if (maxErr < 0.0001){
-		break;
+		cond = false;
 	}
 	}
 return 0;
