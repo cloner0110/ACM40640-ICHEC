@@ -14,7 +14,7 @@
 #include <stdbool.h>
 
 int main (){
-	float w_mat[100][100], w_mat_old[100][100];
+	float w_mat[100][100], w_mat_new[100][100];
 	int i,j;
 	for (i=0 ; i<100 ; i++){
 		for(j=0 ; j<100 ; j++){
@@ -40,30 +40,33 @@ int main (){
 			}
 		}	
 	}
-	int iter=0;
-	int maxErr = -1;
-	bool cond = true;
-	while (cond) {
+	int iter = 0;
+	float conv_tolerance = 0.0001;
+	while (1) {
 		iter+=1;
-		for (i=0 ; i<100 ; i++){
-			for (j=0 ; j<100 ; j++){
-				w_mat_old[i][j] = w_mat[i][j];
-			}
-		}
 		for (i=1 ; i<99 ; i++){
 			for (j=1 ; j<99 ; j++){
-				w_mat[i][j] = (w_mat_old[i+1][j] + w_mat_old[i-1][j] + w_mat_old[i][j+1] + w_mat_old[i][j-1])/4.0;
+				w_mat_new[i][j] = (w_mat[i+1][j] + w_mat[i-1][j] + w_mat[i][j+1] + w_mat[i][j-1])/4.0;
 			}	
 		}
+		
+	float maxErr = -1.0;
 	for (i=0 ; i<100 ; i++){
 		for (j=0 ; j<100 ; j++){
-			maxErr = fmax(maxErr , (w_mat[i][j]-w_mat_old[i][j]));
+			
+			float temp = fabs(w_mat_new[i][j]-w_mat[i][j]);
+			maxErr = fmax(maxErr ,temp);
 		}
 	}
 	printf("iteration = %d ,Error = %f \n", iter, maxErr);
-	if (maxErr < 0.0001){
-		cond = false;
+	if (maxErr < conv_tolerance){
+		break;
 	}
+	for (i=0 ; i<100 ; i++){
+			for (j=0 ; j<100 ; j++){
+				w_mat[i][j] = w_mat_new[i][j];
+			}
+		}
 	}
 return 0;
 }
