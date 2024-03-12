@@ -16,12 +16,12 @@
 #include "ran2.c"
 int main (){
     float randNumberx, randNumbery, final_pi;
-	//- number of random generations
-	int i,tid;
+    //- number of random generations
+    int i,tid;
     int randGenLim = 100000;
     int nd = 0;
 	double time;
-	long seed;
+    long seed;
 	time = omp_get_wtime();
     omp_set_num_threads(4);
 	#pragma omp parallel for private (i,randNumberx, randNumbery, seed) reduction(+:nd)
