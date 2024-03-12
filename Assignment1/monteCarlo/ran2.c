@@ -7,7 +7,9 @@
 *   x = ran2(&seed);
 */
 
-
+#include <omp.h>
+#include<stdio.h>
+#include<stdlib.h> 
 #define IM1 2147483563
 #define IM2 2147483399
 #define AM (1.0/IM1)
@@ -30,7 +32,7 @@ float ran2(long *idum) {
   static long iy=0;
   static long iv[NTAB];
   float temp;
-
+#pragma omp threadprivate(iy,iv,idum2)
   if (*idum <= 0) {
      if (-(*idum) < 1) *idum=1; 
      else *idum = -(*idum);
