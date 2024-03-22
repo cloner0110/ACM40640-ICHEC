@@ -124,12 +124,8 @@ int main(void) {
     }
     sig=sqrt(sig/nSamples);
     printf("\nSummary (Serial version):\n");
-    printf("Number of Threads = %d \n",nthreads);
     printf("|  Avg. Time (s) | sigma Time(s)\n");
     printf("%16.8f %16.8f\n",timeAvg,sig);
-free(times);
-free(w_mat.matrix);
-free(w_mat_new.matrix);
 }
 
 

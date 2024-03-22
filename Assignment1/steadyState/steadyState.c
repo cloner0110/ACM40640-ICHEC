@@ -30,11 +30,11 @@ int main(void) {
     int i,j,k,u,nthreads;
 
     //- number of samples for parallel run
-    int nSamples = 2;
+    int nSamples = 5;
  
    //- Grid size M*N
-    int M = 300 ;
-    int N = 300 ;
+    int M = 100 ;
+    int N = 100 ;
 
     //- iteration counter
     unsigned iter;

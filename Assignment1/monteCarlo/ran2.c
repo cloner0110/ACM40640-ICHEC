@@ -32,6 +32,7 @@ float ran2(long *idum) {
   static long iy=0;
   static long iv[NTAB];
   float temp;
+//- here we use threadprivate to replicate the variables for each thread to have their own copy of it.
 #pragma omp threadprivate(iy,iv,idum2)
   if (*idum <= 0) {
      if (-(*idum) < 1) *idum=1; 
